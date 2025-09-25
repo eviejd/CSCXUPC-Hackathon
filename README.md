@@ -1,1 +1,1 @@
-# CSCXUPC-Hackathon
+# CSC X UPC Hackathon
