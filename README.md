@@ -1,7 +1,7 @@
 # Procrastinauction - CPC X UPC Hackathon 🕒💸🦆
 
 Procrastinauction is an auction-style task manager designed to make everyday jobs less boring.  
-From **house chores** to **group projects** to **event plannning**, it turns your group to-do list into a game where you *bid* for the right to NOT complete a task.
+From **household chores** to **group projects** to **event plannning**, it turns your group to-do list into a game where you *bid* for the right to NOT complete a task.
 
 ---
 
