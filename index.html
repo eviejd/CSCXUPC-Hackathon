@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Procrastinauction</title>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
@@ -9,16 +9,19 @@
 </head>
 <body>
   <div class="container">
+    <button id="soundToggle" class="sound-toggle" title="Toggle Sound">🔊</button>
+    <div id="gavelContainer" class="gavel-container">
+      <img id="gavelIcon" class="gavel" src="gavel.png" alt="gavel">
+    </div>
 
     <div id="homePage" class="page active">
       <div class="header">
         <nav class="nav">
-          <a class="active" href="#">Overview</a> 
-          <a href="howTo.html">How To Use</a> 
+          <a class="active" href="#">Overview</a>
+          <a href="howTo.html">How To Use</a>
         </nav>
         <h1 class="logo">
-          <img src="Logo.png" class="logo-mark" alt="" onerror="this.style.display='none'">
-          <span class="logo-text">Procrastinauction</span>
+          <img src="text-logo.png" class="logo-mark" alt="Procrastinauction" onerror="this.style.display='none'">
         </h1>
       </div>
 
@@ -48,8 +51,6 @@
         </div>
 
         <button id="btnStartRound" class="btn btn-primary btn-large">Start Round</button>
-        <button id="downloadResultsPdfBtn" class="btn btn-secondary">Download Results PDF</button>
-        
       </div>
 
       <div class="footer">
@@ -57,11 +58,10 @@
       </div>
     </div>
 
-
     <div id="handoverPage" class="page">
       <div class="header">
         <h1 class="logo">
-          <img src="logo.png" class="logo-mark" alt="" onerror="this.style.display='none'">
+          <img src="logo.png" class="logo-mark" alt="handover" onerror="this.style.display='none'">
           <span class="pass-device">Pass the device</span>
         </h1>
       </div>
@@ -69,7 +69,13 @@
         <div>
           <div class="handover-title">Pass to:</div>
           <div id="handoverName" class="handover-name">—</div>
-          <div class="timer" id="handoverTimer">3</div>
+          <div class="timer-wrap">
+            <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+              <circle class="ring-fg" id="handoverRing" cx="60" cy="60" r="54"></circle>
+            </svg>
+            <div class="timer" id="handoverTimer">3</div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,7 +83,7 @@
     <div id="bidPage" class="page">
       <div class="header">
         <h1 class="logo">
-          <img src="logo.png" class="logo-mark" alt="" onerror="this.style.display='none'">
+          <img src="logo.png" class="logo-mark" alt="bid" onerror="this.style.display='none'">
           <span class="logo-text">Place your bid</span>
         </h1>
       </div>
@@ -87,7 +93,13 @@
           <div id="bidSubtitle" class="bid-subtitle">It's your turn — submit a bid</div>
         </div>
 
-        <div class="timer" id="bidTimer">5</div>
+        <div class="timer-wrap">
+          <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+            <circle class="ring-fg" id="bidRing" cx="60" cy="60" r="54"></circle>
+          </svg>
+          <div class="timer" id="bidTimer">5</div>
+        </div>
 
         <div class="input-group">
           <label for="bidAmount">Bid Amount</label>
@@ -98,11 +110,10 @@
       </div>
     </div>
 
-    <!-- RESULTS -->
     <div id="resultsPage" class="page">
       <div class="header">
         <h1 class="logo">
-          <img src="logo.png" class="logo-mark" alt="" onerror="this.style.display='none'">
+          <img src="logo.png" class="logo-mark" alt="results" onerror="this.style.display='none'">
           <span class="logo-text">Results</span>
         </h1>
       </div>
@@ -117,6 +128,7 @@
             <thead><tr><th>User</th><th>Bid</th></tr></thead>
             <tbody></tbody>
           </table>
+              <button id="downloadResultsPdfBtn" class="btn btn-secondary">Download Results PDF</button>
         </div>
 
         <div class="section">
@@ -137,21 +149,14 @@
     </div>
   </div>
 
- 
-
   <script src="app.js"></script>
-   <!-- libs -->
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-
-<!-- helper (download this file and place it next to index.html as pdf-export.js) -->
-<script src="pdfExport.js"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // bind the export button when DOM is ready
-    if (window.initPdfExport) window.initPdfExport();
-  });
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="pdfExport.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      if(window.initPdfExport) window.initPdfExport();
+    });
+  </script>
 </body>
 </html>
