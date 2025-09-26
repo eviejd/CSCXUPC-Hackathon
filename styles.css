@@ -125,4 +125,32 @@ body {
     .section, .bids-table { break-inside: avoid; page-break-inside: avoid; }
   }
   
-
+/* Tasks-by-user list */
+.user-tasks-card {
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    background: #fff;
+  }
+  .user-tasks-card .user-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .user-tasks-card .user-name { font-weight: 600; font-size: 1rem; }
+  .user-tasks-card .pill {
+    font-size: .85rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,.08);
+  }
+  .user-tasks-card .task-list { margin: 0; padding-left: 16px; }
+  .user-tasks-card .task-list li { margin: 2px 0; }
+  .user-tasks-card .task-list li.muted {
+    color: #666;
+    list-style: none;
+    padding-left: 0;
+  }
+  
