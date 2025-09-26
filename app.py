@@ -1,6 +1,8 @@
 import time
 import random
-
+from enum import Enum, auto
+import heapq
+import itertools
 
 class User:
     def __init__(self, name, points):
@@ -42,20 +44,26 @@ class Bid:
         self.bid_amount = int(bid_amount)
         self.timestamp_ms = int(time.time() * 1000)
 
+class Auction_State(Enum):
+    SCHEDULED = auto()
+    OPEN = auto()
+    CLOSED = auto()
+    CANCELLED = auto()
+
 
 class Auction:
     def __init__(self, task, duration_seconds):
         self.task = task
-        self.status = "open"
+        self.status = Auction_State.OPEN
         self.ends_at_time = time.time() + max(1, int(duration_seconds))
         self.bids = {}
         self.assigned_user = None
 
     def is_open(self):
-        return self.status == "open" and time.time() < self.ends_at_time
+        return self.status == Auction_State.OPEN and time.time() < self.ends_at_time
 
     def seconds_remaining(self):
-        if self.status != "open":
+        if self.status != Auction_State.OPEN:
             return 0
         return max(0, int(self.ends_at_time - time.time()))
 
@@ -93,10 +101,10 @@ class Auction:
         return random.choice(fewest_task_names)
 
     def settle_now(self, registry):
-        if self.status == "closed":
+        if self.status == Auction_State.CLOSED:
             return
 
-        self.status = "closed"
+        self.status = Auction_State.CLOSED
 
         if not self.bids:
             self.assigned_user = None
@@ -115,3 +123,59 @@ class Auction:
             if bidder_user:
                 bidder_user.points = max(
                     0, bidder_user.points - bid.bid_amount)
+                
+
+class Task_State(Enum):
+    QUEUED = auto()
+    AUCTIONED = auto()
+    ASSIGNED = auto()
+    IN_PROGRESS = auto()
+    DONE = auto()
+    EXPIRED = auto()
+                
+
+class Task: 
+    def __init__(self, id, name, description, deadline, priority, user):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.deadline = deadline
+        self.priority = priority
+        self.status = Task_State.QUEUED
+        self.user = user
+
+    def __repr__(self):
+        return f"Task(id={self.id}, name={self.name}, status={self.status}, user={self.user}, priority={self.priority})"
+    
+
+class TaskQueue: 
+    def __init__(self): 
+        self._heap = []
+        # self.iter = itertools.count()
+
+    def add_task(self, task): 
+        # count = next(self.iter)
+        heapq.heappush(self._heap, (-task.priority, task.id, task))
+
+    def get_next_task(self) -> Task: 
+        if not self._heap: 
+            return None
+        
+        _, _, task = heapq.heappop(self._heap)
+        return task
+ 
+    
+    def peek_next_task(self) -> Task:
+        if not self._heap: 
+            return None
+        return self._heap[0][2]
+    
+    def __len__(self): 
+        return len(self._heap)
+
+
+
+ 
+    
+
+        
