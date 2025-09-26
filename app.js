@@ -23,6 +23,10 @@ function showPage(id){
     var pages = document.querySelectorAll(".page");
     for (var i=0;i<pages.length;i++){ pages[i].classList.remove("active"); }
     var el = $(id); if (el) el.classList.add("active");
+
+    if (id === "resultsPage") {
+        renderTasksByUserResults();
+      }
 }
 window.showPage = showPage;
 
@@ -137,6 +141,30 @@ function startRoundOnServer(){
     renderHome();
 }
 
+function beforeExport(){
+    // ensure panel is fresh, then let the browser paint once
+    renderTasksByUserResults();
+    return new Promise(function(resolve){
+      requestAnimationFrame(function(){ setTimeout(resolve, 0); });
+    });
+  }
+
+  var exportRes = $("exportPdfResultsBtn");
+  if (exportRes){
+    exportRes.addEventListener("click", async function(){
+      await beforeExport();
+      window.print();
+    });
+  }
+
+  var exportHow = $("exportPdfHowToBtn");
+  if (exportHow){
+    exportHow.addEventListener("click", async function(){
+      await beforeExport();
+      window.print();
+    });
+  }
+
 function beginPollingServerState(){
     if (poll_interval_id) clearInterval(poll_interval_id);
     poll_interval_id = setInterval(function(){
@@ -214,29 +242,75 @@ function renderResultsFromState(s){
             +  '</div>';
     }
     pointsList.innerHTML = html;
+    }   
+    if(Array.isArray(s.users)) {
+        users = s.users;
     }
+    renderTasksByUserResults();
 }
 
 
-function submitBidToServer(){
+
+// --- Tasks-by-User (Results page) ---
+function escapeHtml(s){
+    return (s==null ? "" : String(s))
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+  
+  function renderTasksByUserResults(){
+    var wrap = document.getElementById("tasksByUserResults");
+    if (!wrap) return;
+  
+    var list = Array.isArray(users) ? users : [];
+    if (list.length === 0){
+      wrap.innerHTML = '<div class="empty-state">No users yet</div>';
+      return;
+    }
+  
+    var html = list.map(function(u){
+      var tlist = Array.isArray(u.assigned_tasks) ? u.assigned_tasks : [];
+      var items = tlist.length
+        ? tlist.map(function(t){ return '<li>'+escapeHtml(t)+'</li>'; }).join("")
+        : '<li class="muted">No tasks assigned</li>';
+  
+      return (
+        '<div class="user-tasks-card">'+
+          '<div class="user-row">'+
+            '<span class="user-name">'+escapeHtml(u.name)+'</span>'+
+            '<span class="pill">'+tlist.length+' task'+(tlist.length===1?'':'s')+'</span>'+
+          '</div>'+
+          '<ul class="task-list">'+items+'</ul>'+
+        '</div>'
+      );
+    }).join("");
+  
+    wrap.innerHTML = html;
+  }
+  
+
+
+  function submitBidToServer(){
     var amount = parseInt(($( "bidAmount")||{value:""}).value,10);
     var err = $("bidError");
     if (isNaN(amount) || amount < 0){
-        if(err){ err.textContent = "Amount must be ≥ 0"; err.style.display = "block"; }
-        return;
+      if(err){ err.textContent = "Amount must be ≥ 0"; err.style.display = "block"; }
+      return;
     }
     requestJson("POST", "/api/bid", { amount: amount })
-    .then(function(res){
+      .then(function(res){
         if (!res || !res.ok){
-        if(err){ err.textContent = (res && res.error) ? res.error : "Bid failed"; err.style.display = "block"; }
-        return;
-    }
+          if(err){ err.textContent = (res && res.error) ? res.error : "Bid failed"; err.style.display = "block"; }
+          return;
+        }
         if(err){ err.style.display = "none"; }
         var ba = $("bidAmount"); if (ba) ba.value = "";
-    })
-    .catch(function(){
+      })
+      .catch(function(){
         if(err){ err.textContent = "Connection error"; err.style.display = "block"; }
-    });
+      });
+  }
+  
 
     // Export PDF // 
     function bindPdfButtons() {
@@ -259,4 +333,4 @@ function submitBidToServer(){
       // Call once after DOM is ready / after you render pages:
       document.addEventListener('DOMContentLoaded', bindPdfButtons);
       
-}
+
