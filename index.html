@@ -48,6 +48,8 @@
         </div>
 
         <button id="btnStartRound" class="btn btn-primary btn-large">Start Round</button>
+        <button id="downloadResultsPdfBtn" class="btn btn-secondary">Download Results PDF</button>
+        
       </div>
 
       <div class="footer">
@@ -128,6 +130,21 @@
     </div>
   </div>
 
+ 
+
   <script src="app.js"></script>
+   <!-- libs -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+<!-- helper (download this file and place it next to index.html as pdf-export.js) -->
+<script src="pdfExport.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // bind the export button when DOM is ready
+    if (window.initPdfExport) window.initPdfExport();
+  });
+</script>
 </body>
 </html>

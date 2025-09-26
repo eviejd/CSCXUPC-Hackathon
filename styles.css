@@ -115,3 +115,14 @@ body {
 .page { display:none; }
 .page.active { display:flex; flex-direction:column; flex:1; }
 
+/* PDF Export */
+@media print {
+    .nav, .footer, .btn, .input-group, .timer { display: none !important; }
+    body { background: #fff !important; }
+    .container { border: 0 !important; }
+    .page { display: none !important; }
+    #resultsPage { display: block !important; }
+    .section, .bids-table { break-inside: avoid; page-break-inside: avoid; }
+  }
+  
+

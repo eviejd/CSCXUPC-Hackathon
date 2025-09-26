@@ -237,4 +237,26 @@ function submitBidToServer(){
     .catch(function(){
         if(err){ err.textContent = "Connection error"; err.style.display = "block"; }
     });
+
+    // Export PDF // 
+    function bindPdfButtons() {
+        const byId = (id) => document.getElementById(id);
+      
+        const resBtn = byId('exportPdfResultsBtn');
+        if (resBtn) resBtn.addEventListener('click', () => {
+          // Ensure the Results page is active before printing (if you navigate dynamically)
+          // showPage('resultsPage'); // if you have this helper already
+          window.print();
+        });
+      
+        const howBtn = byId('exportPdfHowToBtn');
+        if (howBtn) howBtn.addEventListener('click', () => {
+          // showPage('howTo'); // only if you swap pages programmatically
+          window.print();
+        });
+      }
+      
+      // Call once after DOM is ready / after you render pages:
+      document.addEventListener('DOMContentLoaded', bindPdfButtons);
+      
 }
