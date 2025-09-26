@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Procrastinauction (Frontend Only)</title>
+  <!-- Title font -->
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    #howTo .row {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="learn-more-btn" title="About">Learn More</button>
+
+<!-- How to -->
+<div id="howTo" class="page active">
+    <div class="header">
+      <nav class="nav">
+        <a href="index.html">Overview</a>
+        <a class="active" href="#">How-to</a>
+        <a href="#">Contact</a>
+      </nav>
+      <h1 class="logo">Procrastinauction</h1>
+    </div>
+
+    <div class="content">
+      <div class="row">
+        <div class="section">
+          <h3>How To Use</h3>
+
+          <p>1. Add users by entering their names and clicking "Add User".</p>
+          <p>2. Add tasks to the queue by entering task descriptions and clicking "Add Task".</p>
+          <p>3. Once you have at least one user and one task, the "Start Round" button will be enabled.</p>
+          <p>4. Click "Start Round" to begin the bidding process.</p>
+          <p>5. Recieve your set tasks once bidding concludes.</p>
+          
+          <br></br>
+
+          <h3>What happens if we run out of Money?</h3>
+
+          <p>Each user starts with a set amount of points (e.g., 100). Bids are deducted from their total points. </p>
+          <p> If a user runs out of points, they can no longer place bids.</p>
+          <p>This now means you can not longer get out of tasks.</p>
+          <p>While losers' tasks is less than average tasks, losers will be assigned tasks other member want to bid on, to not get assigned.</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>Â© Area, 2025</div>
+      <div>Desktop mode</div>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+
+</html>
