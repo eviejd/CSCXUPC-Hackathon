@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Procrastinauction – Active-User Bidding</title></head>
+<body>
+  <h1>Procrastinauction– Active-User Bidding</h1>
+
+  <h2>Start Round</h2>
+  <div>Task: <input id="task" value="Write meeting notes"></div>
+  <div>User order (comma): <input id="order" value="Alice,Bob,Carol"></div>
+  <button id="startBtn">Start Round</button>
+  <div id="startMsg"></div>
+
+  <hr>
+
+  <h2>State</h2>
+  <div>Task: <span id="taskOut">-</span></div>
+  <div>Phase: <span id="phaseOut">-</span></div>
+  <div>Active user: <span id="activeOut">-</span></div>
+  <div>Seconds left: <span id="leftOut">-</span></div>
+  <div>Assigned: <span id="assignedOut">-</span></div>
+
+  <hr>
+
+  <h2>Bid (active user only)</h2>
+  <div>Amount: <input id="bidAmt" type="number" min="0" value="10"></div>
+  <button id="bidBtn" disabled>Submit Bid</button>
+  <div id="bidMsg"></div>
+
+  <hr>
+  <h2>Bids</h2>
+  <pre id="bidsBox">[]</pre>
+  <h2>Users</h2>
+  <pre id="usersBox">[]</pre>
+
+<script>
+const API="http://127.0.0.1:8080"; let timer=null;
+
+async function startRound(){
+  const task=document.getElementById('task').value.trim();
+  const order=document.getElementById('order').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const msg=document.getElementById('startMsg'); msg.textContent="";
+  try{
+    const r=await fetch(API+"/api/start_round",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({task,order})});
+    const j=await r.json(); if(!j.ok){ msg.textContent="Start error: "+(j.error||""); return; }
+    msg.textContent="Round started."; poll(true);
+  }catch(e){ msg.textContent="Network error"; }
+}
+
+async function poll(reset=false){
+  try{
+    const r=await fetch(API+"/api/state"); const j=await r.json(); if(!j.ok) throw new Error();
+    const s=j.state||{};
+    document.getElementById('taskOut').textContent=s.task||"-";
+    document.getElementById('phaseOut').textContent=s.phase||"-";
+    document.getElementById('activeOut').textContent=s.active_user||"-";
+    document.getElementById('leftOut').textContent=s.seconds_left??0;
+    document.getElementById('assignedOut').textContent=s.assigned||"-";
+    document.getElementById('bidsBox').textContent=JSON.stringify(s.bids||[],null,2);
+    document.getElementById('usersBox').textContent=JSON.stringify(s.users||[],null,2);
+    document.getElementById('bidBtn').disabled = s.phase!=="bid";
+    if(reset&&timer) clearInterval(timer);
+    if(!timer) timer=setInterval(()=>poll(false),500);
+  }catch(e){
+    if(reset&&timer) clearInterval(timer);
+    if(!timer) timer=setInterval(()=>poll(false),1000);
+  }
+}
+
+async function submitBid(){
+  const amount=parseInt(document.getElementById('bidAmt').value,10);
+  const msg=document.getElementById('bidMsg'); msg.textContent="";
+  try{
+    const r=await fetch(API+"/api/bid",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount})});
+    const j=await r.json();
+    msg.textContent=j.ok?"Bid accepted":"Bid error: "+(j.error||"");
+    poll(false);
+  }catch(e){ msg.textContent="Network error"; }
+}
+
+document.getElementById('startBtn').addEventListener('click', startRound);
+document.getElementById('bidBtn').addEventListener('click', submitBid);
+poll(true);
+</script>
+</body>
+</html>
