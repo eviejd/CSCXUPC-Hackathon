@@ -24,7 +24,7 @@ body {
 }
 
 .logo {
-    font-family: "Crimson Text", serif;
+    font-family: "Ballega", serif;
     font-size: 2.4rem;
     font-weight: 400;
     color: #222;
@@ -34,9 +34,13 @@ body {
     height: 80px;     
 }
 
-
 .logo-text {
-    font-size: 80px;   
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', monospace;
+    font-weight: 400;
+    font-size: clamp(2rem, 1.2rem + 3vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: .2px;
+    white-space: nowrap;
 }
 
 .pass-device{
@@ -115,7 +119,144 @@ body {
 .page { display:none; }
 .page.active { display:flex; flex-direction:column; flex:1; }
 
-/* PDF Export */
+.timer-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+}
+
+.ring {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 6;
+}
+
+.ring-fg {
+    fill: none;
+    stroke: #8E9C78;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 339.29;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111;
+    z-index: 10;
+}
+
+@keyframes tick {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.timer.ticking {
+    animation: tick 1s ease-in-out;
+}
+
+.gavel-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+}
+
+.gavel {
+    font-size: 8rem;
+    display: block;
+    transform-origin: bottom center;
+}
+
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{height:28px;width:auto;object-fit:contain;flex:0 0 auto}
+@media (min-width:768px){.logo-mark{height:80px}}
+
+@keyframes gavelStrike {
+    0% { transform: rotate(-45deg) scale(0.8); opacity: 0; }
+    20% { transform: rotate(-20deg) scale(1); opacity: 1; }
+    40% { transform: rotate(-45deg) scale(1.1); opacity: 1; }
+    60% { transform: rotate(-20deg) scale(1); opacity: 1; }
+    80% { transform: rotate(-30deg) scale(1); opacity: 1; }
+    100% { transform: rotate(-25deg) scale(1); opacity: 0; }
+}
+
+.gavel.striking {
+    animation: gavelStrike 2s ease-out;
+}
+
+.timer.urgent {
+    color: #d32f2f;
+    animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    from { opacity: 1; }
+    to { opacity: 0.6; }
+}
+
+.ring-fg.urgent {
+    stroke: #d32f2f;
+}
+
+.sound-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #8E9C78;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.sound-toggle:hover { transform: scale(1.1); }
+.sound-toggle.muted { background: #666; }
+
+.result-task {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    opacity: 0;
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.winner-announcement { animation: slideInUp 0.8s ease-out 0.3s backwards; }
+.bids-table { animation: slideInUp 0.8s ease-out 0.6s backwards; }
+
+/* from file 2: PDF export print styles */
 @media print {
     .nav, .footer, .btn, .input-group, .timer { display: none !important; }
     body { background: #fff !important; }
@@ -123,34 +264,41 @@ body {
     .page { display: none !important; }
     #resultsPage { display: block !important; }
     .section, .bids-table { break-inside: avoid; page-break-inside: avoid; }
-  }
-  
-/* Tasks-by-user list */
+}
+
+/* from file 2: Tasks-by-user list */
 .user-tasks-card {
     border: 1px solid rgba(0,0,0,.08);
     border-radius: 12px;
     padding: 12px 14px;
     margin: 10px 0;
     background: #fff;
-  }
-  .user-tasks-card .user-row {
+}
+.user-tasks-card .user-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     margin-bottom: 8px;
-  }
-  .user-tasks-card .user-name { font-weight: 600; font-size: 1rem; }
-  .user-tasks-card .pill {
+}
+.user-tasks-card .user-name { font-weight: 600; font-size: 1rem; }
+.user-tasks-card .pill {
     font-size: .85rem;
     padding: 2px 8px;
     border-radius: 999px;
     border: 1px solid rgba(0,0,0,.08);
-  }
-  .user-tasks-card .task-list { margin: 0; padding-left: 16px; }
-  .user-tasks-card .task-list li { margin: 2px 0; }
-  .user-tasks-card .task-list li.muted {
+}
+.user-tasks-card .task-list { margin: 0; padding-left: 16px; }
+.user-tasks-card .task-list li { margin: 2px 0; }
+.user-tasks-card .task-list li.muted {
     color: #666;
     list-style: none;
     padding-left: 0;
-  }
-  
+}
+
+@media (max-width: 768px) {
+    .row { grid-template-columns: 1fr; }
+    .content { padding: 20px; }
+    .logo-text { font-size: 60px; }
+    .pass-device { font-size: 3rem; }
+    .handover-title { font-size: 3rem; }
+}
