@@ -39,7 +39,7 @@
           </div>
 
           <div class="section">
-            <h3>Task Queue</h3>
+            <h3>Task List</h3>
             <div id="tasksList"><div class="empty-state">No tasks yet</div></div>
             <div class="input-group" style="margin-top:12px">
               <label for="taskInput">Add Task</label>
@@ -59,16 +59,13 @@
     </div>
 
     <div id="handoverPage" class="page">
-      <div class="header">
-        <h1 class="logo">
-          <img src="logo.png" class="logo-mark" alt="handover" onerror="this.style.display='none'">
-          <span class="pass-device">Pass the device</span>
-        </h1>
-      </div>
       <div class="content" style="display:flex;justify-content:center;align-items:center;text-align:center">
         <div>
-          <div class="handover-title">Pass to:</div>
+          <div class="handover-row">
+          <div class="handover-title">Pass the device to</div>
           <div id="handoverName" class="handover-name">—</div>
+          </div>
+          <div class="handover-text">Keep your bid hidden!</div>
           <div class="timer-wrap">
             <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
               <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
@@ -81,12 +78,7 @@
     </div>
 
     <div id="bidPage" class="page">
-      <div class="header">
-        <h1 class="logo">
-          <img src="logo.png" class="logo-mark" alt="bid" onerror="this.style.display='none'">
-          <span class="logo-text">Place your bid</span>
-        </h1>
-      </div>
+
       <div class="content">
         <div class="section">
           <div id="bidTaskTitle" class="task-title-large">Task Title</div>
@@ -113,15 +105,17 @@
     <div id="resultsPage" class="page">
       <div class="header">
         <h1 class="logo">
-          <img src="logo.png" class="logo-mark" alt="results" onerror="this.style.display='none'">
-          <span class="logo-text">Results</span>
+          <img src="results-text.png" class="result-text" alt="Results" onerror="this.style.display='none'">
         </h1>
       </div>
       <div class="content">
         <div class="section">
-          <div id="resultTask" class="result-task">—</div>
+          <div class="result-task">
+            <div>Task:</div>
+          <div id="resultTask" class="result-task-row">—</div>
           <div class="winner-announcement">
-            <div>Assigned to:</div>
+            <div class="result-assigned">Assigned to:</div>
+            </div>
             <div id="assignedName" class="winner-name"></div>
           </div>
           <table class="bids-table" id="bidsTable">
