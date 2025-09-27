@@ -211,7 +211,7 @@ body {
 }
 
 .logo{display:flex;align-items:center;gap:10px}
-.logo-mark{height:28px;width:auto;object-fit:contain;flex:0 0 auto}
+.logo-mark{height:20px;width:auto;object-fit:contain;flex:0 0 auto}
 @media (min-width:768px){.logo-mark{height:80px}}
 
 @keyframes gavelStrike {
