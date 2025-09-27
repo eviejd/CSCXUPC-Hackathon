@@ -28,7 +28,10 @@ From **household chores** to **group projects** to **event plannning**, it turns
 2. Add tasks to the queue by entering task descriptions and clicking "Add Task".
 
 3. Once you have at least one user and one task, the "Start Round" button will be enabled.
+  
+4. Click "Start Round" to begin the bidding process.
 
+5. Recieve your set tasks once bidding concludes.
 
 ---
 
@@ -69,7 +72,4 @@ From **household chores** to **group projects** to **event plannning**, it turns
 
 ---
 
-5. Click "Start Round" to begin the bidding process.
-
-6. Recieve your set tasks once bidding concludes.
 
