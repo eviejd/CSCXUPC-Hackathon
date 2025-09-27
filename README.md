@@ -16,6 +16,12 @@ From **household chores** to **group projects** to **event plannning**, it turns
 
 ---
 
+## How To Run
+1. Start the server of app.py (terminal: 'python app.py')
+2. Run the index.html file (terminal: 'python -m http.server 5050')
+
+---
+
 ## How To Use
 1. Add users by entering their names and clicking "Add User".
 
