@@ -14,7 +14,6 @@
       <img id="gavelIcon" class="gavel" src="gavel.png" alt="gavel">
     </div>
 
-    <!-- HOME -->
     <div id="homePage" class="page active">
       <div class="header">
         <nav class="nav">
@@ -30,7 +29,9 @@
         <div class="row">
           <div class="section">
             <h3>Users</h3>
-            <div id="usersList"><div class="empty-state">No users yet</div></div>
+            <div id="usersList">
+              <div class="empty-state">No users yet</div>
+            </div>
             <div class="input-group" style="margin-top:12px">
               <label for="userNameInput">Add User</label>
               <input id="userNameInput" class="input-field" placeholder="e.g. Evie" autocomplete="off">
@@ -41,7 +42,9 @@
 
           <div class="section">
             <h3>Task List</h3>
-            <div id="tasksList"><div class="empty-state">No tasks yet</div></div>
+            <div id="tasksList">
+              <div class="empty-state">No tasks yet</div>
+            </div>
             <div class="input-group" style="margin-top:12px">
               <label for="taskInput">Add Task</label>
               <input id="taskInput" class="input-field" placeholder="e.g. Write meeting notes" autocomplete="off">
@@ -59,7 +62,6 @@
       </div>
     </div>
 
-    <!-- HANDOVER -->
     <div id="handoverPage" class="page">
       <div class="content" style="display:flex;justify-content:center;align-items:center;text-align:center">
         <div>
@@ -79,7 +81,6 @@
       </div>
     </div>
 
-    <!-- BID -->
     <div id="bidPage" class="page">
       <div class="content">
         <div class="section">
@@ -104,7 +105,6 @@
       </div>
     </div>
 
-    <!-- RESULTS -->
     <div id="resultsPage" class="page">
       <div class="header">
         <h1 class="logo">
@@ -121,12 +121,12 @@
             <span class="assigned-label">Assigned to:</span>
             <span class="assigned-value" id="assignedName">—</span>
           </div>
-
           <table class="bids-table" id="bidsTable">
-            <thead><tr><th>User</th><th>Bid</th></tr></thead>
+            <thead>
+              <tr><th>User</th><th>Bid</th></tr>
+            </thead>
             <tbody></tbody>
           </table>
-
           <button id="downloadResultsPdfBtn" class="btn btn-secondary">Download Results PDF</button>
         </div>
 
@@ -148,7 +148,6 @@
       </div>
     </div>
 
-    <!-- UPCOMING -->
     <div id="upcomingTasks" class="page">
       <div class="header">
         <h1 class="logo">
@@ -162,7 +161,6 @@
             <div id="upcomingResultTask" class="upcoming-result-task">—</div>
           </div>
         </div>
-
         <button id="nextRoundBtnUpcoming" class="btn btn-primary">Next Round</button>
         <button class="btn btn-secondary" onclick="showPage('homePage')">Back to Home</button>
       </div>
@@ -170,7 +168,6 @@
         <div>CPC X UPC Hackathon, 2025</div>
       </div>
     </div>
-
   </div>
 
   <script src="app.js"></script>
