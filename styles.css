@@ -23,6 +23,14 @@ body {
     border-bottom:1px solid #eee; 
 }
 
+.header-logo {
+  position: absolute;
+  top: 20px;    /* adjust as needed */
+  right: 20px;  /* adjust as needed */
+  height: 50px; /* scale your logo */
+  width: auto;
+}
+
 .logo {
     font-family: "Ballega", serif;
     font-size: 2.4rem;
@@ -80,7 +88,7 @@ body {
 .user-points { color:#2f7a54; font-weight:700; }
 .empty-state { color:#777; font-style:italic; text-align:center; padding:20px; }
 
-.footer { padding:20px 32px; background:#fff; border-top:1px solid #eee; display:flex; justify-content:space-between; }
+.footer { padding:20px 32px; background:#fff; border-top:1px solid #eee; display:flex; justify-content:center;}
 
 .input-group { margin-bottom:18px; }
 .input-group label { display:block; margin-bottom:8px; font-weight:700; color:#222; }
@@ -102,12 +110,42 @@ body {
 .btn-secondary { background:#fff; color:#222; border:1px solid #9db29b; }
 .btn-large { font-size:1.2rem; padding:18px 22px; min-height:56px; }
 
-.timer { font-size:3rem; font-weight:800; text-align:center; color:#111; margin:12px 0; }
-.handover-title { text-align:center; font-size:5rem; font-weight:700; color:#444; }
-.handover-name { text-align:center; font-size:2rem; font-weight:800; margin:8px 0; }
+.timer-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+}
 
-.task-title-large { text-align:center; font-size:1.2rem; font-weight:800; margin-bottom:8px; }
-.bid-subtitle { text-align:center; color:#444; }
+.ring {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111;
+  text-align: center;
+}
+
+.handover-title { text-align:center; font-size:3rem; font-weight:700; color:#444; }
+.handover-name { text-align:center; font-size:3rem; font-weight:800; margin:8px 0; }
+.handover-text { text-align:center; font-size:2rem; font-weight:700; margin:8px 0; color:#b00020}
+.handover-row {
+  display: flex;
+  justify-content: center;  
+  align-items: baseline;    
+  gap: 10px;                
+}
+
+.task-title-large { text-align:center; font-size:4rem; font-weight:800; margin-bottom:8px; }
+.bid-subtitle { text-align:center; color:#444; font-size:3rem}
 
 .results-card { background:#fff; border:1px solid #eee; border-radius:8px; padding:22px; }
 .winner-announcement { text-align:center; margin:12px 0; }
@@ -119,21 +157,6 @@ body {
 .page { display:none; }
 .page.active { display:flex; flex-direction:column; flex:1; }
 
-.timer-wrap {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 20px auto;
-}
-
-.ring {
-    width: 120px;
-    height: 120px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: rotate(-90deg);
-}
 
 .ring-bg {
     fill: none;
@@ -239,7 +262,7 @@ body {
 .sound-toggle.muted { background: #666; }
 
 .result-task {
-    font-size: 1.3rem;
+    font-size: 2.5rem;
     font-weight: 600;
     color: #333;
     margin-bottom: 20px;
@@ -247,6 +270,17 @@ body {
     opacity: 0;
     animation: slideInUp 0.8s ease-out forwards;
 }
+.result-text {
+  height: 60px;   
+  width: auto;  
+  display: block;
+  margin: 0 auto; 
+}
+
+.result-assigned {
+    font-size: 2rem;
+}
+
 
 @keyframes slideInUp {
     from { opacity: 0; transform: translateY(30px); }
