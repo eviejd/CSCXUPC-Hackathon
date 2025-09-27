@@ -143,18 +143,37 @@
     }
   
     // -------- Wiring --------
-    function initPdfExport(){
-      const btn = document.getElementById('downloadResultsPdfBtn');
-      if (btn){
-        btn.addEventListener('click', function(){
-          exportResultsSummaryPdf('procrastinauction-results.pdf');
-        });
-      }
-      const printBtns = document.querySelectorAll('[data-print="section"]');
-      printBtns.forEach(function (b) {
-        b.addEventListener('click', function () { window.print(); });
+function initPdfExport(){
+    const btn = document.getElementById('downloadResultsPdfBtn');
+    if (btn){
+      btn.addEventListener('click', async function(){
+        document.body.classList.add('pdf-mode');
+        try {
+          await exportResultsSummaryPdf('procrastinauction-results.pdf');
+        } finally {
+          document.body.classList.remove('pdf-mode');
+        }
+        if (typeof window.showPage === 'function') {
+          window.showPage('resultsPage');
+        }
       });
     }
+  
+   
+    window.addEventListener('afterprint', function(){
+      if (typeof window.showPage === 'function') {
+        window.showPage('resultsPage');
+      }
+    });
+  
+    const printBtns = document.querySelectorAll('[data-print="section"]');
+    printBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.body.classList.add('pdf-mode'); 
+        window.print();
+      });
+    });
+  }
   
     // Expose
     window.downloadSectionAsPdf = downloadSectionAsPdf;
