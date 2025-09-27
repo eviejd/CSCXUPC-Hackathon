@@ -29,7 +29,47 @@ From **household chores** to **group projects** to **event plannning**, it turns
 
 3. Once you have at least one user and one task, the "Start Round" button will be enabled.
 
-4. Click "Start Round" to begin the bidding process.
 
-5. Recieve your set tasks once bidding concludes.
+---
+
+## Skills Demonstrated
+
+- **Frontend development**
+  - Semantic HTML structure
+  - Responsive layouts with CSS Grid & Flexbox
+  - DOM manipulation and event-driven UI in vanilla JavaScript
+  - Media queries and accessibility-friendly styles
+
+- **Backend development**
+  - Python HTTP server with `http.server` + `ThreadingMixIn`
+  - JSON API design (`/api/state`, `/api/start_round`, `/api/bid`)
+  - State management for auctions, users, bids, and tasks
+  - Fair tie-breaking logic in competitive scenarios
+
+- **Integration**
+  - Frontend ↔ Backend communication via `fetch` and JSON
+  - Cross-Origin Resource Sharing (CORS) headers
+  - Handling async flows and error states gracefully
+
+- **UX Enhancements**
+  - Countdown timers with CSS animations
+  - Audio cues via Web Audio API (tick + gavel strike)
+  - Exporting structured results to clean paginated PDFs
+
+- **Software engineering practices**
+  - Modular code structure
+  - Enum-based state machines (phases, tasks, auctions)
+  - Defensive programming with validation and error handling
+  - Automated testing with `pytest`
+
+- **Collaboration**
+  - GitHub project workflow
+  - Clear separation of roles: frontend, backend, testing, docs
+  - Hackathon-style time management and iteration
+
+---
+
+5. Click "Start Round" to begin the bidding process.
+
+6. Recieve your set tasks once bidding concludes.
 
