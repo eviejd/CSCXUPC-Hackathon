@@ -137,10 +137,41 @@
           </div>
         </div>
 
+        <button id="upcomingSummaryBtn" class="btn btn-primary">Upcoming Tasks</button>
         <button id="nextRoundBtn" class="btn btn-primary">Next Round</button>
         <button class="btn btn-secondary" onclick="showPage('homePage')">Back to Home</button>
       </div>
     </div>
+
+
+    <!--UPCOMING-->
+    <div id="upcomingTasks" class="page">
+      <div class="header">
+          <h1 class="logo">
+              <img src="logo.png" class="logo-mark" alt="" onerror="this.style.display='none'">
+              <span class="logo-text">Upcoming Tasks</span>
+          </h1>
+      </div>
+      <div class="content">
+          <div class="section">
+              <div id="upcomingResultTask" class="upcoming-result-task">—</div>
+              <h3>Remaining Tasks</h3>
+              <div id="remainingTasksList">
+                  <div class="empty-state">No tasks remain</div>
+              </div>
+          </div>
+  
+          <!-- Changed ID to avoid duplicate with resultsPage -->
+          <button id="nextRoundBtnUpcoming" class="btn btn-primary">Next Round</button>
+          <button class="btn btn-secondary" onclick="showPage('homePage')">Back to Home</button>
+      </div>
+      <div class="footer">
+          <div>CPC X UPC Hackathon, 2025</div>
+      </div>
+  </div>
+
+</div>
+  </div>
   </div>
 
   <script src="app.js"></script>

@@ -179,20 +179,40 @@ document.addEventListener("DOMContentLoaded", function() {
   bindPdfButtons();
 });
 
-function wireEvents() {
-  var el;
-  el = $("addUserBtn"); if (el) el.addEventListener("click", addUser);
-  el = $("userNameInput"); if (el) el.addEventListener("keypress", function(e) { if (e.key === "Enter") addUser(); });
-  el = $("addTaskBtn"); if (el) el.addEventListener("click", addTask);
-  el = $("taskInput"); if (el) el.addEventListener("keypress", function(e) { if (e.key === "Enter") addTask(); });
-  el = $("btnStartRound"); if (el) el.addEventListener("click", startRoundOnServer);
-  el = $("submitBidBtn"); if (el) el.addEventListener("click", submitBidToServer);
-  el = $("bidAmount"); if (el) el.addEventListener("keypress", function(e) { if (e.key === "Enter") submitBidToServer(); });
-  el = $("nextRoundBtn"); if (el) el.addEventListener("click", startRoundOnServer);
-  
-  var backBtn = document.querySelector("#resultsPage .btn.btn-secondary");
-  if (backBtn) backBtn.addEventListener("click", function() { showPage("homePage"); });
-}
+
+function wireEvents(){
+    var el;
+    el = $("addUserBtn");    if (el) el.addEventListener("click", addUser);
+    el = $("userNameInput"); if (el) el.addEventListener("keypress", function(e){ if(e.key==="Enter") addUser(); });
+    el = $("addTaskBtn");    if (el) el.addEventListener("click", addTask);
+    el = $("taskInput");     if (el) el.addEventListener("keypress", function(e){ if(e.key==="Enter") addTask(); });
+    el = $("btnStartRound"); if (el) el.addEventListener("click", startRoundOnServer);
+    el = $("submitBidBtn");  if (el) el.addEventListener("click", submitBidToServer);
+    el = $("bidAmount");     if (el) el.addEventListener("keypress", function(e){ if(e.key==="Enter") submitBidToServer(); });
+    el = $("nextRoundBtn");  if (el) el.addEventListener("click", startRoundOnServer);
+    
+    // Add event listener for the upcoming tasks page's next round button
+    el = $("nextRoundBtnUpcoming"); 
+    if (el) el.addEventListener("click", function() {
+      if (tasks.length > 0) {
+        startRoundOnServer();
+      } else {
+        alert("No more tasks to auction");
+        showPage("homePage");
+      }
+    });
+    
+    // Fixed upcoming summary button handler
+    el = $("upcomingSummaryBtn");
+    if (el) el.addEventListener("click", function() {
+      // Simplified version - just show the page with current tasks
+      renderRemainingTasks();
+      showPage("upcomingTasks");
+    });
+    
+    var backBtn = document.querySelector("#resultsPage .btn.btn-secondary");
+    if (backBtn) backBtn.addEventListener("click", function(){ showPage("homePage"); });
+  }
 
 function renderHome() {
   var usersList = $("usersList");
@@ -582,3 +602,26 @@ document.addEventListener("click", function initAudioOnInteraction() {
   }
   document.removeEventListener("click", initAudioOnInteraction);
 });
+
+
+function renderRemainingTasks() {
+    // Update the task title if there's a current task
+    var urt = $("upcomingResultTask"); 
+    if (urt) {
+        urt.textContent = tasks.length > 0 ? "Next Task: " + tasks[0] : "No upcoming tasks";
+    }
+
+    // Render the list of remaining tasks
+    var remainingTasksList = $("remainingTasksList");
+    if (remainingTasksList) {
+        if (tasks && tasks.length > 0) {
+            var html = "";
+            for (var t = 0; t < tasks.length; t++) { 
+                html += '<div class="list-item"><div>' + tasks[t] + '</div></div>'; 
+            }
+            remainingTasksList.innerHTML = html;
+        } else {
+            remainingTasksList.innerHTML = '<div class="empty-state">No tasks remain</div>';
+        }
+    }
+}
