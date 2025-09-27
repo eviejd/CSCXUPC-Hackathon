@@ -14,6 +14,7 @@
       <img id="gavelIcon" class="gavel" src="gavel.png" alt="gavel">
     </div>
 
+    <!-- HOME -->
     <div id="homePage" class="page active">
       <div class="header">
         <nav class="nav">
@@ -58,12 +59,13 @@
       </div>
     </div>
 
+    <!-- HANDOVER -->
     <div id="handoverPage" class="page">
       <div class="content" style="display:flex;justify-content:center;align-items:center;text-align:center">
         <div>
           <div class="handover-row">
-          <div class="handover-title">Pass the device to</div>
-          <div id="handoverName" class="handover-name">—</div>
+            <div class="handover-title">Pass the device to</div>
+            <div id="handoverName" class="handover-name">—</div>
           </div>
           <div class="handover-text">Keep your bid hidden!</div>
           <div class="timer-wrap">
@@ -77,8 +79,8 @@
       </div>
     </div>
 
+    <!-- BID -->
     <div id="bidPage" class="page">
-
       <div class="content">
         <div class="section">
           <div id="bidTaskTitle" class="task-title-large">Task Title</div>
@@ -102,6 +104,7 @@
       </div>
     </div>
 
+    <!-- RESULTS -->
     <div id="resultsPage" class="page">
       <div class="header">
         <h1 class="logo">
@@ -110,22 +113,23 @@
       </div>
       <div class="content">
         <div class="section">
-          <div class="result-task">
-            <div>Task:</div>
-          <div id="resultTask" class="result-task-row">—</div>
-          <div class="winner-announcement">
-            <div class="result-assigned">Assigned to:</div>
-            </div>
-            <div id="assignedName" class="winner-name"></div>
+          <div class="result-inline">
+            <span class="task-label">Task:</span>
+            <span class="task-value" id="resultTask">—</span>
           </div>
+          <div class="winner-inline">
+            <span class="assigned-label">Assigned to:</span>
+            <span class="assigned-value" id="assignedName">—</span>
+          </div>
+
           <table class="bids-table" id="bidsTable">
             <thead><tr><th>User</th><th>Bid</th></tr></thead>
             <tbody></tbody>
           </table>
-              <button id="downloadResultsPdfBtn" class="btn btn-secondary">Download Results PDF</button>
+
+          <button id="downloadResultsPdfBtn" class="btn btn-secondary">Download Results PDF</button>
         </div>
 
-      <div class="exportContent" class="page">
         <div class="section">
           <h3>Updated Points</h3>
           <div id="pointsList"></div>
@@ -137,7 +141,6 @@
             <div class="empty-state">No users yet</div>
           </div>
         </div>
-      </div>
 
         <button id="upcomingSummaryBtn" class="btn btn-primary">Upcoming Tasks</button>
         <button id="nextRoundBtn" class="btn btn-primary">Next Round</button>
@@ -145,33 +148,29 @@
       </div>
     </div>
 
-
-    <!--UPCOMING-->
+    <!-- UPCOMING -->
     <div id="upcomingTasks" class="page">
       <div class="header">
-          <h1 class="logo">
-              <img src="upcoming-task-text.png" class="logo-mark" alt="Procrastinauction" onerror="this.style.display='none'">
-          </h1>
+        <h1 class="logo">
+          <img src="upcoming-task-text.png" class="logo-mark" alt="Procrastinauction" onerror="this.style.display='none'">
+        </h1>
       </div>
       <div class="content">
-          <div class="section">
-              <h3>Remaining Tasks</h3>
-              <div id="remainingTasksList">
-                  <div id="upcomingResultTask" class="upcoming-result-task">—</div>
-              </div>
+        <div class="section">
+          <h3>Remaining Tasks</h3>
+          <div id="remainingTasksList">
+            <div id="upcomingResultTask" class="upcoming-result-task">—</div>
           </div>
-  
-          <!-- Changed ID to avoid duplicate with resultsPage -->
-          <button id="nextRoundBtnUpcoming" class="btn btn-primary">Next Round</button>
-          <button class="btn btn-secondary" onclick="showPage('homePage')">Back to Home</button>
+        </div>
+
+        <button id="nextRoundBtnUpcoming" class="btn btn-primary">Next Round</button>
+        <button class="btn btn-secondary" onclick="showPage('homePage')">Back to Home</button>
       </div>
       <div class="footer">
-          <div>CPC X UPC Hackathon, 2025</div>
+        <div>CPC X UPC Hackathon, 2025</div>
       </div>
-  </div>
+    </div>
 
-</div>
-  </div>
   </div>
 
   <script src="app.js"></script>
@@ -179,8 +178,8 @@
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="pdfExport.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded',function(){
-      if(window.initPdfExport) window.initPdfExport();
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.initPdfExport) window.initPdfExport();
     });
   </script>
 </body>
